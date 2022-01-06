@@ -25,22 +25,22 @@ include("view/template/header.php");
                 </tr>
             </thead>
             <tbody>
-            <?php if (!empty($monhocn)): ?>
-                <?php foreach ($monhocn AS $monhoc) : ?>
+            <?php if (!empty($monhocs)): ?>
+                <?php foreach ($monhocs AS $monhoc) : ?>
                     <tr>
                            <?php
                                 $urlEdit =
-                                    "index.php?controller=monhoc&action=edit&mamh=" . $monhoc['mamh'];
+                                    "index.php?controller=monhoc&action=edit&mamonhoc=" . $monhoc['mamonhoc'];
                                 $urlDelete =
-                                    "index.php?controller=monhoc&action=delete&mamh=" . $monhoc['mamh'];
+                                    "index.php?controller=monhoc&action=delete&mamonhoc=" . $monhoc['mamonhoc'];
                             ?>
-                        <td><?php echo  $monhoc['mamh'] ?></td>
+                        <td><?php echo  $monhoc['mamonhoc'] ?></td>
                         <td><?php echo  $monhoc['ten_mh'] ?></td>
                         <td><?php echo  $monhoc['sotinchi'] ?></td>
                         <td><?php echo  $monhoc['sotiet_lt'] ?></td>
-                        <td><?php echo  $monhoc[' sotiet_bt'] ?></td>
+                        <td><?php echo  $monhoc['sotiet_bt'] ?></td>
                         <td><?php echo  $monhoc['sotiet_thtn'] ?></td>
-                        <td><?php echo  $monhoc[' sogio_tuhoc'] ?></td>
+                        <td><?php echo  $monhoc['sogio_tuhoc'] ?></td>
                         <td><a href="<?php echo $urlEdit?>">Edit</a> &nbsp;</td>
                         <td>
                             <a onclick="return confirm('Bạn chắc chắn muốn xóa?')"

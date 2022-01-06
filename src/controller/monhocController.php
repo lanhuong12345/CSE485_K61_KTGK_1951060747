@@ -11,65 +11,70 @@
             $error = '';
             //xử lý submit form
             if (isset($_POST['submit'])) {
-                $bd_name = $_POST['mamh'];
-                if (empty($bd_name)) {
+                $ten_mh= $_POST['ten_mh'];
+                $sotinchi = $_POST['sotinchi'];
+                $sotiet_lt = $_POST['sotiet_lt'];
+                $sotiet_bt = $_POST['sotiet_bt'];
+                $sotiet_thtn = $_POST['sotiet_thtn'];
+                $sogio_tuhoc = $_POST['sogio_tuhoc'];}
+                if (empty($ten_mh)) {
                     $error = "Name không được để trống";
                 }
                 else {
-                  
-                    $userModel = new UserModel();
-                    //gọi phương thức để insert dữ liệu
-                    //nên tạo 1 mảng tạm để lưu thông tin của
-    //                đối tượng dựa theo cấu trúc bảng
-                    $userArr = [
-                        'bd_name' => $bd_name
+                    
+                    $monhocModel = new MonhocModel();
+                    $monhocArr = [
+                        'ten_mh' => $ten_mh,
+                        'sotinchi' => $sotinchi,
+                        'sotiet_lt' => $sotiet_lt,
+                        'sotiet_bt' => $sotiet_bt,
+                        'sotiet_thtn' => $sotiet_thtn,
+                        'sogio_tuhoc' => $sogio_tuhoc
+                        
                     ];
-                    $isInsert = $userModel->getUserById($userArr);
+                    $isInsert = $monhocModel->getMonhocById($monhocArr);
                     if ($isInsert) {
                         $_SESSION['success'] = "Thêm mới thành công";
                     }
                     else {
                         $_SESSION['error'] = "Thêm mới thất bại";
                     }
-                    header("Location: index.php?controller=user&action=index");
+                    header("Location: index.php?controller=monhoc&action=index");
                     exit();
-                }
+                
             }
             //gọi view
-            require_once 'view/user/add.php';
+            require_once 'view/monhoc/add.php';
         }
          }
  
          function edit()
          {
-            //echo "tôi sẽ sửa người dùng";
-             // Tôi sẽ cần gọi UserModel để truy vấn dữ liệu
-            //lấy ra thông tin sách dựa theo id đã gắn trên url
-            //xử lý validate cho trường hợp id truyền lên không hợp lệ
-            if (!isset($_GET['bd_id'])) {
+            
+            if (!isset($_GET['mamh'])) {
                 $_SESSION['error'] = "Tham số không hợp lệ";
-                header("Location: index.php?controller=user&action=index");
+                header("Location: index.php?controller=monhoc&action=index");
                 return;
             }
-            if (!is_numeric($_GET['bd_id'])) {
+            if (!is_numeric($_GET['mamh'])) {
                 $_SESSION['error'] = "Id phải là số";
-                header("Location: index.php?controller=user&action=index");
+                header("Location: index.php?controller=monhoc&action=index");
                 return;
             }
-            $bd_id = $_GET['bd_id'];
+            $bd_id = $_GET['mamh'];
             //gọi model để lấy ra đối tượng sách theo id
-            $userModel = new UserModel();
-            $users = $userModel->getUserById($bd_id);
+            $monhocModel = new MonhocModel();
+            $monhoc = $monhocModel->getUserById($mamh);
 
             //xử lý submit form, lặp lại thao tác khi submit lúc thêm mới
             $error = '';
             if (isset($_POST['submit'])) {
-                $bd_name = $_POST['bd_name'];
-                $bd_sex = $_POST['bd_sex'];
-                $bd_age = $_POST['bd_age'];
-                $bd_bgroup = $_POST['bd_bgroup'];
-                $bd_reg_date = $_POST['bd_reg_date'];
-                $bd_phno = $_POST['bd_phno'];
+                $ten_mh= $_POST['ten_mh'];
+                $sotinchi = $_POST['sotinchi'];
+                $sotiet_lt = $_POST['sotiet_lt'];
+                $sotiet_bt = $_POST['sotiet_bt'];
+                $sotiet_thtn = $_POST['sotiet_thtn'];
+                $sogio_tuhoc = $_POST['sogio_tuhoc'];
                 //check validate dữ liệu
                 if (empty($bd_name)) {
                     $error = "Name không được để trống";
@@ -78,22 +83,22 @@
                     //xử lý update dữ liệu vào hệ thống
                     $userModel = new UserModel();
                     $userArr = [
-                        'bd_id' => $bd_id,
-                        'bd_name' => $bd_name,
-                        'bd_sex' => $bd_sex,
-                        'bd_age' => $bd_age,
-                        'bd_bgroup' => $bd_bgroup,
-                        'bd_reg_date' => $bd_reg_date,
-                        'bd_phno' => $bd_phno
+                        'mamh' => $mamh,
+                        ' ten_mh' => $ten_mh,
+                        'sotinchi' => $sotinchi,
+                        'sotiet_lt' => $sotiet_lt,
+                        'sotiet_bt' => $sotiet_bt,
+                        'sotiet_thtn' => $sotiet_thtn,
+                        'sogio_tuhoc' => $sogio_tuhoc
                     ];
-                    $isUpdate = $userModel->update($userArr);
+                    $isUpdate = $umonhocModel->update($monhocArr);
                     if ($isUpdate) {
-                        $_SESSION['success'] = "Update bản ghi #$bd_id thành công";
+                        $_SESSION['success'] = "Update bản ghi #$mamh";
                     }
                     else {
-                        $_SESSION['error'] = "Update bản ghi #$bd_id thất bại";
+                        $_SESSION['error'] = "Update bản ghi #$mamh thất bại";
                     }
-                    header("Location: index.php?controller=user&action=index");
+                    header("Location: index.php?controller=monhoc&action=index");
                     exit();
                 }
             }
@@ -105,22 +110,22 @@
             //url trên trình dueyjet sẽ có dạng
              // ?controller=book&action=delete&id=1
              //bắt id từ trình duyêtj
-            $bd_id = $_GET['bd_id'];
-            if (!is_numeric($bd_id)) {
-                header("Location: index.php?controller=user&action=index");
+            $mamh= $_GET['mamh'];
+            if (!is_numeric($mamh)) {
+                header("Location: index.php?controller=mamh&action=index");
                 exit();
             }
                 // Tôi sẽ cần gọi UserModel để truy vấn dữ liệu
-                $user = new User();
-                $isDelete = $user->delete($bd_id);
+                $monhoc = new Monhoc();
+                $isDelete = $mamh->delete($mamh);
                 if ($isDelete) {
                     //chuyển hướng về trang liệt kê danh sách
                     //tạo session thông báo mesage
-                    $_SESSION['success'] = "Xóa bản ghi #$bd_id thành công";
+                    $_SESSION['success'] = "Xóa bản ghi #$mamh thành công";
                 }
                 else {
                     //báo lỗi
-                    $_SESSION['error'] = "Xóa bản ghi #$bd_id thất bại";
+                    $_SESSION['error'] = "Xóa bản ghi #$mamh thất bại";
                 }
                 exit();
                 // Sau khi truy vấn được dữ liệu, tôi sẽ đổ ra UserView/delete.php tương ứng
